@@ -72,6 +72,11 @@ later version.
 python -m unittest discover -s tests -v
 ```
 
+CI runs on Linux and Windows with Python 3.9 and 3.14. The Python 3.9 Linux
+job is pinned to Ubuntu 24.04 because Python 3.9 binaries are unavailable
+for Ubuntu 26.04. Other jobs use the latest runner images. Matrix jobs run
+independently so a setup failure does not cancel the remaining checks.
+
 ## Publish under PtxDK
 
 Create an empty GitHub repository named `cs2-log-validator` under `PtxDK`.

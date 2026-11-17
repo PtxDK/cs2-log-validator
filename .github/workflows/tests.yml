@@ -8,13 +8,22 @@ permissions:
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        python: ['3.9', '3.14']
+        include:
+          # Python 3.9 binaries are available for 24.04, but not 26.04.
+          - os: ubuntu-24.04
+            python: '3.9'
+          - os: ubuntu-latest
+            python: '3.14'
+          - os: windows-latest
+            python: '3.9'
+          - os: windows-latest
+            python: '3.14'
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python }}
       - run: python -m unittest discover -s tests -v
